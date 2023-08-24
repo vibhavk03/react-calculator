@@ -36,7 +36,8 @@ function reducer(state, action) {
       if (payload.digit === "." && state.currentOperand.includes(".")) {
         return state;
       }
-      // console.log("AFTER: ADD DIGIT", state);
+
+      // default case
       return {
         ...state,
         currentOperand: `${state.currentOperand || ""}${payload.digit}`,
@@ -49,8 +50,6 @@ function reducer(state, action) {
 
     // do any operation in calculator
     case ACTIONS.CHOOSE_OPERATION:
-      // console.log("in choose operation", state);
-
       // if no numbers in the calculator
       if (state.currentOperand == null && state.previousOperand == null) {
         return state;
@@ -82,6 +81,7 @@ function reducer(state, action) {
         currentOperand: null,
       };
 
+    // evaluate the output
     case ACTIONS.EVALUATE:
       // if we dont have enough information
       if (
@@ -100,6 +100,7 @@ function reducer(state, action) {
         currentOperand: evaluate(state),
       };
 
+    // delete digit in calculator display
     case ACTIONS.DELETE_DIGIT:
       console.log();
       // if overwrite is true
@@ -187,6 +188,7 @@ function App() {
     {}
   );
 
+  // for debugging
   // console.log("rendering", { currentOperand, previousOperand, operation });
 
   return (
